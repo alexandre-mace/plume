@@ -206,7 +206,7 @@ function App() {
         <div className={"mx-auto flex"}>
           Fait avec amour par{" "}
           <a
-            className={"ml-2 underline hover:text-slate-700"}
+            className={"ml-1 underline hover:text-slate-700"}
             target="_blank"
             rel="noopener noreferrer"
             href="https://github.com/alexandre-mace"

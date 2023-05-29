@@ -393,7 +393,11 @@ function RadioGroup({
 
 function CustomSwitch({ id, label, value, setOnChange, disabled = false }) {
   return (
-    <FormControl display="flex" alignItems="center">
+    <FormControl
+      display="flex"
+      alignItems="center"
+      justifyContent={"space-between"}
+    >
       <FormLabel
         htmlFor={id}
         mb="0"
