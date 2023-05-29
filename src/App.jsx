@@ -14,8 +14,10 @@ import {
   culture,
   data,
   electricity,
+  electricityHeatingRatio,
   electronic,
   fish,
+  flatVsHouseRatio,
   foodCategory,
   health,
   healthEducation,
@@ -23,15 +25,21 @@ import {
   house,
   housingCategory,
   infrastructure,
+  keeperRatio,
   leisure,
+  longFlightCost,
   meat,
   milkEggs,
+  noThrashPolicy,
   others,
   otherTransports,
   publicCategory,
+  publicDecarbRatio,
   teaching,
   thrash,
   transportCategory,
+  veganAnimalConsumption,
+  vegetarianFleshConsumption,
 } from "./domain/data.js";
 import { useState } from "react";
 import computeCategoryTotal from "./utils/computeCategoryTotal.js";
@@ -54,16 +62,16 @@ function App() {
       vegan &&
       (datum.name === meat || datum.name === fish || datum.name === milkEggs)
     ) {
-      return { ...datum, size: 0 };
+      return { ...datum, size: veganAnimalConsumption };
     }
     if (vegetarian && (datum.name === meat || datum.name === fish)) {
-      return { ...datum, size: 0 };
+      return { ...datum, size: vegetarianFleshConsumption };
     }
     if (noCar && datum.name === car) {
       return { ...datum, size: 0 };
     }
     if (noThrash && datum.name === thrash) {
-      return { ...datum, size: 0 };
+      return { ...datum, size: noThrashPolicy };
     }
     if (
       keeper &&
@@ -71,13 +79,16 @@ function App() {
         datum.name === electronic ||
         datum.name === leisure)
     ) {
-      return { ...datum, size: datum.size / 2 };
+      return { ...datum, size: datum.size / keeperRatio };
     }
     if (flat && keeper && datum.name === house) {
-      return { ...datum, size: datum.size / 6 };
+      return { ...datum, size: datum.size / keeperRatio / flatVsHouseRatio };
+    }
+    if (keeper && datum.name === house) {
+      return { ...datum, size: datum.size / keeperRatio };
     }
     if (flat && datum.name === house) {
-      return { ...datum, size: datum.size / 3 };
+      return { ...datum, size: datum.size / flatVsHouseRatio };
     }
     if (flat && datum.name === building) {
       return { ...datum, size: 0 };
@@ -89,7 +100,7 @@ function App() {
       return { ...datum, size: datum.size };
     }
     if (noHousingFossile && datum.name === electricity) {
-      return { ...datum, size: datum.size * 2 };
+      return { ...datum, size: datum.size * electricityHeatingRatio };
     }
     if (secondHandClothes && datum.name === clothes) {
       return { ...datum, size: 0 };
@@ -106,13 +117,13 @@ function App() {
         datum.name === administration ||
         (datum.name === others && datum.category === publicCategory))
     ) {
-      return { ...datum, size: datum.size / 6 };
+      return { ...datum, size: datum.size / publicDecarbRatio };
     }
     if (meatReduction && datum.name === meat) {
       return { ...datum, size: datum.size / meatReduction };
     }
     if (datum.name === airplane) {
-      return { ...datum, size: longFlights * 1500 };
+      return { ...datum, size: longFlights * longFlightCost };
     }
     return datum;
   });

@@ -1,8 +1,34 @@
 import {
   buyingCategory,
+  defaultAdministrationCost,
+  defaultBankCost,
+  defaultBuildCost,
+  defaultCarCost,
+  defaultClothesCost,
+  defaultCultureCost,
+  defaultElectricityHouseCost,
+  defaultElectronicCost,
+  defaultFishCost,
+  defaultFossileHeatingCost,
+  defaultHealthCost,
+  defaultHealthEducationCost,
+  defaultHouseCost,
+  defaultInfrastructureCost,
+  defaultLeisureCost,
+  defaultMeatCost,
+  defaultMilkEggsCost,
+  defaultOtherBuyingCost,
+  defaultOtherPublicCost,
+  defaultOtherTransportCost,
+  defaultTeachingCost,
+  defaultThrashCost,
+  flatVsHouseRatio,
   foodCategory,
   housingCategory,
+  keeperRatio,
+  longFlightCost,
   publicCategory,
+  publicDecarbRatio,
   transportCategory,
 } from "../domain/data.js";
 import {
@@ -59,7 +85,17 @@ const Settings = ({
           </div>
           <span className={"inline-block text-xs text-slate-600"}>kgCO2eq</span>
           <div className="mt-2"></div>
-          <div className={"mb-1 text-sm"}>Nombre de longs courriers</div>
+          <div className={"mb-1 me-1 inline-block text-sm"}>
+            Nombre de longs courriers
+          </div>
+          <Gain
+            label={`(${longFlights > 0 ? "+" : "-"}${
+              longFlights * longFlightCost > 0
+                ? longFlights * longFlightCost
+                : longFlightCost
+            }kgCO2eq)`}
+            greenCondition={longFlights === 0}
+          />
           <RadioGroup
             options={[0, 1, 2, 3, 4]}
             name={"longFlights"}
@@ -76,6 +112,11 @@ const Settings = ({
             label={"Je n'ai pas de voiture"}
             setOnChange={setNoCar}
           />
+          <Gain
+            label={`(${noCar ? "-" : "+"}${defaultCarCost}kgCO2eq) 🚀`}
+            greenCondition={noCar}
+            additionalClass={`-translate-y-2`}
+          />
         </div>
       </div>
       <div className="bg-card text-card-foreground rounded-lg border shadow-sm">
@@ -91,27 +132,52 @@ const Settings = ({
             Divise ma consommation de viande par
           </div>
           <RadioGroup
-            options={[0, 1, 2, 3, 4]}
+            options={[0, 2, 3, 4]}
             name={"meatReduction"}
             defaultValue={0}
             onChange={(value) => {
               setMeatReduction(parseInt(value));
             }}
+            disabled={vegetarian || vegan}
             value={meatReduction}
+          />{" "}
+          <Gain
+            label={`(${meatReduction >= 2 ? "-" : "+"}${
+              meatReduction
+                ? defaultMeatCost - Math.floor(defaultMeatCost / meatReduction)
+                : defaultMeatCost
+            }kgCO2eq) 💪`}
+            disabled={vegetarian || vegan}
+            greenCondition={meatReduction >= 2}
           />
-          <div className="mt-3"></div>
+          <div className="mt-1"></div>
           <CustomSwitch
             id={"vegetarian"}
             value={vegetarian}
             label={"Je deviens végétarien"}
             setOnChange={setVegetarian}
+            disabled={vegan}
           />
-          <div className="mt-3"></div>
+          <Gain
+            label={`(${vegetarian ? "-" : "+"}${
+              defaultMeatCost + defaultFishCost
+            }kgCO2eq) 🚀`}
+            greenCondition={vegetarian}
+            disabled={vegan}
+            additionalClass={"-translate-y-2"}
+          />
           <CustomSwitch
             id={"vegan"}
             value={vegan}
             label={"Je deviens vegan"}
             setOnChange={setVegan}
+          />
+          <Gain
+            label={`(${vegan ? "-" : "+"}${
+              defaultMeatCost + defaultFishCost + defaultMilkEggsCost
+            }kgCO2eq) 🚀`}
+            greenCondition={vegan}
+            additionalClass={"-translate-y-2"}
           />
         </div>
       </div>
@@ -134,19 +200,36 @@ const Settings = ({
             label={"Je me chauffe sans énergie fossile (PAC, électrique, etc)"}
             setOnChange={setNoHousingFossile}
           />
-          <div className="mt-3"></div>
+          <Gain
+            label={`(${noHousingFossile ? "-" : "+"}${
+              defaultFossileHeatingCost - defaultElectricityHouseCost
+            }kgCO2eq) 🚀`}
+            greenCondition={noHousingFossile}
+            additionalClass={"-translate-y-2"}
+          />
           <CustomSwitch
             id={"thrash"}
             value={noThrash}
             label={"Mode de vie zéro déchets"}
             setOnChange={setNoThrash}
           />
-          <div className="mt-3"></div>
+          <Gain
+            label={`(${noThrash ? "-" : "+"}${defaultThrashCost}kgCO2eq) 🐣`}
+            greenCondition={noThrash}
+            additionalClass={"-translate-y-2"}
+          />
           <CustomSwitch
             id={"flat"}
             value={flat}
             label={"J'habite en appartemment"}
             setOnChange={setFlat}
+          />
+          <Gain
+            label={`(${flat ? "-" : "+"}${Math.floor(
+              defaultBuildCost + defaultHouseCost / 3
+            )}kgCO2eq) 💪`}
+            greenCondition={flat}
+            additionalClass={"-translate-y-2"}
           />
         </div>
       </div>
@@ -169,12 +252,30 @@ const Settings = ({
             label={"Vêtements de seconde main"}
             setOnChange={setSecondHandClothes}
           />
-          <div className="mt-3"></div>
+          <Gain
+            label={`(${
+              secondHandClothes ? "-" : "+"
+            }${defaultClothesCost}kgCO2eq) 🐣`}
+            greenCondition={secondHandClothes}
+            additionalClass={"-translate-y-2"}
+          />
           <CustomSwitch
             id={"keep"}
             value={keeper}
             label={"Je conserve mes objets longtemps"}
             setOnChange={setKeeper}
+          />
+          <Gain
+            label={`(${keeper ? "-" : "+"}${Math.floor(
+              defaultOtherBuyingCost / keeperRatio +
+                defaultLeisureCost / keeperRatio +
+                defaultElectronicCost / keeperRatio +
+                (flat
+                  ? defaultHouseCost / flatVsHouseRatio / keeperRatio
+                  : defaultHouseCost / keeperRatio)
+            )}kgCO2eq) 💪`}
+            greenCondition={keeper}
+            additionalClass={"-translate-y-2"}
           />
         </div>
       </div>
@@ -196,6 +297,30 @@ const Settings = ({
             value={publicDecarb}
             label={"Services publics décarbonés"}
             setOnChange={setPublicDecarb}
+          />
+          <Gain
+            label={`(${publicDecarb ? "-" : "+"}${Math.floor(
+              defaultInfrastructureCost -
+                defaultInfrastructureCost / publicDecarbRatio +
+                defaultCultureCost -
+                defaultCultureCost / publicDecarbRatio +
+                defaultTeachingCost -
+                defaultTeachingCost / publicDecarbRatio +
+                defaultHealthCost -
+                defaultHealthCost / publicDecarbRatio +
+                defaultHealthEducationCost -
+                defaultHealthEducationCost / publicDecarbRatio +
+                defaultOtherTransportCost -
+                defaultOtherTransportCost / publicDecarbRatio +
+                defaultBankCost -
+                defaultBankCost / publicDecarbRatio +
+                defaultAdministrationCost -
+                defaultAdministrationCost / publicDecarbRatio +
+                defaultOtherPublicCost -
+                defaultOtherPublicCost / publicDecarbRatio
+            )}kgCO2eq) 🚀`}
+            greenCondition={publicDecarb}
+            additionalClass={"-translate-y-2"}
           />
         </div>
       </div>
@@ -219,9 +344,9 @@ function RadioCard(props) {
         borderRadius="md"
         boxShadow="md"
         _checked={{
-          bg: "teal.500",
+          bg: `${props.disabled ? "gray.500" : "teal.500"}`,
           color: "white",
-          borderColor: "teal.500",
+          borderColor: `${props.disabled ? "gray.500" : "teal.500"}`,
         }}
         _focus={{
           boxShadow: "outline",
@@ -235,8 +360,14 @@ function RadioCard(props) {
   );
 }
 
-function RadioGroup({ options, name, defaultValue, onChange, value }) {
-  console.log(value);
+function RadioGroup({
+  options,
+  name,
+  defaultValue,
+  onChange,
+  value,
+  disabled = false,
+}) {
   const { getRootProps, getRadioProps } = useRadioGroup({
     name: name,
     defaultValue: defaultValue,
@@ -251,7 +382,7 @@ function RadioGroup({ options, name, defaultValue, onChange, value }) {
       {options.map((value) => {
         const radio = getRadioProps({ value });
         return (
-          <RadioCard key={value} {...radio}>
+          <RadioCard key={value} {...radio} disabled={disabled}>
             {value}
           </RadioCard>
         );
@@ -260,7 +391,7 @@ function RadioGroup({ options, name, defaultValue, onChange, value }) {
   );
 }
 
-function CustomSwitch({ id, label, value, setOnChange }) {
+function CustomSwitch({ id, label, value, setOnChange, disabled = false }) {
   return (
     <FormControl display="flex" alignItems="center">
       <FormLabel
@@ -273,7 +404,7 @@ function CustomSwitch({ id, label, value, setOnChange }) {
       </FormLabel>
       <Switch
         id={id}
-        colorScheme={"teal"}
+        colorScheme={disabled ? "gray" : "teal"}
         value={value}
         onChange={(e) => {
           setOnChange(e.target.checked);
@@ -282,5 +413,24 @@ function CustomSwitch({ id, label, value, setOnChange }) {
     </FormControl>
   );
 }
+
+const Gain = ({
+  label,
+  greenCondition,
+  additionalClass = "",
+  disabled = false,
+}) => (
+  <span
+    className={`inline-block text-xs ${
+      disabled
+        ? "text-gray-500"
+        : greenCondition
+        ? "text-green-500"
+        : "text-red-500"
+    } ${additionalClass}`}
+  >
+    {label}
+  </span>
+);
 
 export default Settings;
