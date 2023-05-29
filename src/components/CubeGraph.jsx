@@ -46,6 +46,7 @@ export default function TreemapChart({ computedData }) {
         text: "Empreinte carbone (kgCO2eq)",
         color: "#475569",
         font: { weight: "500" },
+        position: "bottom",
       },
       legend: {
         display: false,
@@ -91,11 +92,29 @@ export default function TreemapChart({ computedData }) {
             ],
           },
           backgroundColor(context) {
-            if (context.type !== "data") return "transparent";
-            const { size, category } = context.raw._data;
-            if (size === 0) return color("grey").rgbString();
-            return color(getCategoryColor(category))
-              .alpha(size / totalSize + 0.3 > 1 ? 1 : size / totalSize + 0.3)
+            if (context.type !== "data") {
+              return "transparent";
+            }
+            const index = context.dataIndex;
+            if (
+              context.dataset.data[index]._data.children.length > 1 &&
+              isNaN(context.dataset.data[index]._data.label)
+            ) {
+              return "transparent";
+            }
+
+            return color(
+              getCategoryColor(
+                context.dataset.data[index]._data.children[0].category
+              )
+            )
+              .alpha(
+                (1 +
+                  Math.log(
+                    context.dataset.data[index]._data.children[0].size
+                  )) /
+                  13
+              )
               .rgbString();
           },
         },

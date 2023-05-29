@@ -50,6 +50,7 @@ const defaultCultureCost = 90;
 const defaultOtherPublicCost = 270;
 const defaultOtherTransportCost = 190;
 const longFlightCost = 2000;
+const mediumFlightCost = 850;
 const veganAnimalConsumption = 0;
 const vegetarianFleshConsumption = 0;
 const noThrashPolicy = 0;
@@ -166,4 +167,5 @@ export {
   defaultCultureCost,
   defaultAdministrationCost,
   defaultOtherTransportCost,
+  mediumFlightCost,
 };

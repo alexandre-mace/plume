@@ -29,6 +29,7 @@ import {
   leisure,
   longFlightCost,
   meat,
+  mediumFlightCost,
   milkEggs,
   noThrashPolicy,
   others,
@@ -47,6 +48,7 @@ import getTotalColor from "./utils/getTotalColor.js";
 function App() {
   const [meatReduction, setMeatReduction] = useState(0);
   const [longFlights, setTotalLongFlights] = useState(1);
+  const [mediumFlights, setTotalMediumFlights] = useState(2);
   const [noCar, setNoCar] = useState(false);
   const [vegetarian, setVegetarian] = useState(false);
   const [vegan, setVegan] = useState(false);
@@ -123,7 +125,10 @@ function App() {
       return { ...datum, size: datum.size / meatReduction };
     }
     if (datum.name === airplane) {
-      return { ...datum, size: longFlights * longFlightCost };
+      return {
+        ...datum,
+        size: longFlights * longFlightCost + mediumFlights * mediumFlightCost,
+      };
     }
     return datum;
   });
@@ -143,6 +148,8 @@ function App() {
         setMeatReduction={setMeatReduction}
         longFlights={longFlights}
         setTotalLongFlights={setTotalLongFlights}
+        mediumFlights={mediumFlights}
+        setTotalMediumFlights={setTotalMediumFlights}
         noCar={noCar}
         setNoCar={setNoCar}
         noThrash={noThrash}
@@ -176,14 +183,14 @@ function App() {
               <span className={"text-lg text-slate-600 md:text-xl"}>
                 total kgCO2eq
               </span>
-              <div className={"text-slate-600 md:text-lg"}>
+              <div className={"md:text-md text-slate-600"}>
                 Objectif neutralité carbone : 2T/an/personne
               </div>
             </div>
           </div>
         </div>
         <div className="md:w-2/3">
-          <section className={"relative"}>
+          <section className={"relative mt-6"}>
             <CubeGraph computedData={computedData} />
           </section>
         </div>

@@ -27,6 +27,7 @@ import {
   housingCategory,
   keeperRatio,
   longFlightCost,
+  mediumFlightCost,
   publicCategory,
   publicDecarbRatio,
   transportCategory,
@@ -69,6 +70,8 @@ const Settings = ({
   setKeeper,
   publicDecarb,
   setPublicDecarb,
+  mediumFlights,
+  setTotalMediumFlights,
 }) => (
   <div className="mx-auto mt-6 px-4">
     <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-5">
@@ -85,17 +88,26 @@ const Settings = ({
           </div>
           <span className={"inline-block text-xs text-slate-600"}>kgCO2eq</span>
           <div className="mt-2"></div>
-          <div className={"mb-1 me-1 inline-block text-sm"}>
-            Nombre de longs courriers
-          </div>
-          <Gain
-            label={`(${longFlights > 0 ? "+" : "-"}${
-              longFlights * longFlightCost > 0
-                ? longFlights * longFlightCost
-                : longFlightCost
-            }kgCO2eq)`}
-            greenCondition={longFlights === 0}
+          <div className={"mb-1 me-1 text-sm"}>Nombre de moyens courriers</div>
+          <RadioGroup
+            options={[0, 1, 2, 3, 4]}
+            name={"longFlights"}
+            defaultValue={0}
+            onChange={(value) => {
+              setTotalMediumFlights(parseInt(value));
+            }}
+            value={mediumFlights}
           />
+          <Gain
+            label={`(${mediumFlights > 0 ? "+" : "-"}${
+              mediumFlights * mediumFlightCost > 0
+                ? mediumFlights * mediumFlightCost
+                : mediumFlightCost
+            }kgCO2eq) 🚀`}
+            greenCondition={mediumFlights === 0}
+          />
+          <div className="mt-1"></div>
+          <div className={"mb-1 me-1 text-sm"}>Nombre de longs courriers</div>
           <RadioGroup
             options={[0, 1, 2, 3, 4]}
             name={"longFlights"}
@@ -105,7 +117,15 @@ const Settings = ({
             }}
             value={longFlights}
           />
-          <div className="mt-3"></div>
+          <Gain
+            label={`(${longFlights > 0 ? "+" : "-"}${
+              longFlights * longFlightCost > 0
+                ? longFlights * longFlightCost
+                : longFlightCost
+            }kgCO2eq) 🚀`}
+            greenCondition={longFlights === 0}
+          />
+          <div className="mt-1"></div>
           <CustomSwitch
             id={"no-car"}
             value={noCar}
