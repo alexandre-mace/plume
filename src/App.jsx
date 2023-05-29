@@ -4,24 +4,32 @@ import Header from "./components/Header.jsx";
 import Heading from "./components/Heading.jsx";
 import Settings from "./components/Settings.jsx";
 import {
+  administration,
   airplane,
+  bank,
   building,
   buyingCategory,
   car,
   clothes,
+  culture,
   data,
   electricity,
   electronic,
   fish,
   foodCategory,
+  health,
+  healthEducation,
   heating,
   house,
   housingCategory,
+  infrastructure,
   leisure,
   meat,
   milkEggs,
   others,
+  otherTransports,
   publicCategory,
+  teaching,
   thrash,
   transportCategory,
 } from "./domain/data.js";
@@ -39,6 +47,7 @@ function App() {
   const [secondHandClothes, setSecondHandClothes] = useState(false);
   const [flat, setFlat] = useState(false);
   const [keeper, setKeeper] = useState(false);
+  const [publicDecarb, setPublicDecarb] = useState(false);
 
   const computedData = data.map((datum) => {
     if (
@@ -64,6 +73,9 @@ function App() {
     ) {
       return { ...datum, size: datum.size / 2 };
     }
+    if (flat && keeper && datum.name === house) {
+      return { ...datum, size: datum.size / 6 };
+    }
     if (flat && datum.name === house) {
       return { ...datum, size: datum.size / 3 };
     }
@@ -82,10 +94,23 @@ function App() {
     if (secondHandClothes && datum.name === clothes) {
       return { ...datum, size: 0 };
     }
+    if (
+      publicDecarb &&
+      (datum.name === infrastructure ||
+        datum.name === culture ||
+        datum.name === teaching ||
+        datum.name === health ||
+        datum.name === healthEducation ||
+        datum.name === otherTransports ||
+        datum.name === bank ||
+        datum.name === administration ||
+        (datum.name === others && datum.category === publicCategory))
+    ) {
+      return { ...datum, size: datum.size / 6 };
+    }
     if (meatReduction && datum.name === meat) {
       return { ...datum, size: datum.size / meatReduction };
     }
-
     if (datum.name === airplane) {
       return { ...datum, size: longFlights * 1500 };
     }
@@ -123,6 +148,8 @@ function App() {
         setFlat={setFlat}
         keeper={keeper}
         setKeeper={setKeeper}
+        publicDecarb={publicDecarb}
+        setPublicDecarb={setPublicDecarb}
       />
       <div className="flex gap-4">
         <div className="w-1/3">

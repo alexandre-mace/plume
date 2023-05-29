@@ -41,6 +41,8 @@ const Settings = ({
   setFlat,
   keeper,
   setKeeper,
+  publicDecarb,
+  setPublicDecarb,
 }) => (
   <div className="mx-auto mt-6 px-4">
     <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-5">
@@ -188,6 +190,13 @@ const Settings = ({
             {publicSize}
           </div>
           <span className={"inline-block text-xs text-slate-600"}>kgCO2eq</span>
+          <div className="mt-3"></div>
+          <CustomSwitch
+            id={"public"}
+            value={publicDecarb}
+            label={"Services publics décarbonés"}
+            setOnChange={setPublicDecarb}
+          />
         </div>
       </div>
     </div>
