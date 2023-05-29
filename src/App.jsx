@@ -130,7 +130,7 @@ function App() {
   const total = computedData.reduce((acc, datum) => acc + datum.size, 0);
 
   return (
-    <main className={"mx-auto w-11/12 md:w-full"}>
+    <main className={"mx-auto md:w-full"}>
       <Header />
       <Heading />
       <Settings
@@ -162,25 +162,45 @@ function App() {
         publicDecarb={publicDecarb}
         setPublicDecarb={setPublicDecarb}
       />
-      <div className="flex gap-4">
-        <div className="w-1/3">
+      <div className="flex flex-col gap-4 md:flex-row">
+        <div className="mt-8 md:mt-0 md:w-1/3">
           <div className={"flex h-full text-center"}>
-            <div className={"m-auto"}>
-              <div className={`text-5xl font-bold ${getTotalColor(total)}`}>
+            <div className={"mx-auto md:m-auto"}>
+              <div
+                className={`text-3xl font-bold md:text-5xl ${getTotalColor(
+                  total
+                )}`}
+              >
                 {Math.floor(total).toLocaleString()}
               </div>
-              <span className={"text-xl text-slate-600"}>total kgCO2eq</span>
-              <div className={"text-lg text-slate-600"}>
+              <span className={"text-lg text-slate-600 md:text-xl"}>
+                total kgCO2eq
+              </span>
+              <div className={"text-slate-600 md:text-lg"}>
                 Objectif neutralité carbone : 2T/an/personne
               </div>
             </div>
           </div>
         </div>
-        <div className="w-2/3">
+        <div className="md:w-2/3">
           <section className={"relative"}>
             <CubeGraph computedData={computedData} />
           </section>
         </div>
+      </div>
+      <div
+        className={
+          "fixed bottom-4 left-1/2 -translate-x-1/2 rounded-lg bg-white p-2 text-center shadow md:hidden"
+        }
+      >
+        <div
+          className={`text-xl font-bold md:text-5xl ${getTotalColor(total)}`}
+        >
+          {Math.floor(total).toLocaleString()}
+        </div>
+        <span className={"text-md text-slate-600 md:text-xl"}>
+          total kgCO2eq
+        </span>
       </div>
       <footer className={"mb-2 mt-6 flex"}>
         <div className={"mx-auto flex"}>

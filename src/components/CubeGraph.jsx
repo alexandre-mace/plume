@@ -105,10 +105,9 @@ export default function TreemapChart({ computedData }) {
 
   return (
     <div
-      className="chart-container"
+      className="chart-container w-full md:h-[60vh] md:w-auto"
       style={{
         position: "relative",
-        height: "60vh",
         display: "flex",
         justifyContent: "center",
       }}
