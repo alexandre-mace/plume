@@ -44,6 +44,8 @@ export default function TreemapChart({ computedData }) {
       title: {
         display: true,
         text: "Empreinte carbone (kgCO2eq)",
+        color: "#475569",
+        font: { weight: "500" },
       },
       legend: {
         display: false,
