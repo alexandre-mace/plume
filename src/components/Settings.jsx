@@ -73,7 +73,7 @@ const Settings = ({
           <CustomSwitch
             id={"no-car"}
             value={noCar}
-            label={"Plus de voiture"}
+            label={"Je n'ai pas de voiture"}
             setOnChange={setNoCar}
           />
         </div>
@@ -103,14 +103,14 @@ const Settings = ({
           <CustomSwitch
             id={"vegetarian"}
             value={vegetarian}
-            label={"Végétarien"}
+            label={"Je deviens végétarien"}
             setOnChange={setVegetarian}
           />
           <div className="mt-3"></div>
           <CustomSwitch
             id={"vegan"}
             value={vegan}
-            label={"Vegan"}
+            label={"Je deviens vegan"}
             setOnChange={setVegan}
           />
         </div>

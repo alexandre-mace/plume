@@ -4,27 +4,27 @@ const housingCategory = "Logement";
 const buyingCategory = "Achats";
 const publicCategory = "Dépense publique";
 
-const meat = "Viande";
-const airplane = "Avion";
-const car = "Voiture";
-const fish = "Poisson";
-const milkEggs = "Lait et oeufs";
-const heating = "Gaz et fioul";
-const thrash = "Déchets, eau";
-const clothes = "Vêtements";
-const electricity = "Électricité";
-const house = "Maison";
-const building = "Construction";
-const leisure = "Loisirs";
-const electronic = "Électronique, telecoms";
+const meat = "Viande 🥩";
+const airplane = "Avion ✈️";
+const car = "Voiture 🚗";
+const fish = "Poisson 🐟";
+const milkEggs = "Lait et oeufs 🥛";
+const heating = "Gaz et fioul 🪨";
+const thrash = "Déchets, eau 🗑️";
+const clothes = "Vêtements 🧢";
+const electricity = "Électricité ⚡️";
+const house = "Maison 🏠";
+const building = "Construction 🏗️";
+const leisure = "Loisirs ⛱️";
+const electronic = "Électronique, telecoms 💻";
 const others = "Autres";
-const bank = "Assurance, banque";
-const healthEducation = "Santé, éducation";
-const health = "Santé";
-const teaching = "Enseignement";
+const bank = "Assurance, banque 🏦";
+const healthEducation = "Santé, éducation 🧑‍🏫";
+const health = "Santé 🧑‍⚕️";
+const teaching = "Enseignement 🧑‍🏫";
 const culture = "Sport, culture";
-const infrastructure = "Infrastructures";
-const administration = "Administration et défense";
+const infrastructure = "Infrastructures 🏤";
+const administration = "Administration et défense 📝";
 const otherTransports = "Autres transports";
 
 const data = [
@@ -32,9 +32,9 @@ const data = [
   { name: airplane, size: 430, category: transportCategory },
   { name: car, size: 2030, category: transportCategory },
   { name: meat, size: 920, category: foodCategory },
-  { name: "Boissons", size: 450, category: foodCategory },
+  { name: "Boissons 🥤", size: 450, category: foodCategory },
   { name: milkEggs, size: 390, category: foodCategory },
-  { name: "Fruits et légumes", size: 240, category: foodCategory },
+  { name: "Fruits et légumes 🥕", size: 240, category: foodCategory },
   { name: fish, size: 120, category: foodCategory },
   { name: others, size: 230, category: foodCategory },
   { name: heating, size: 1180, category: housingCategory },
