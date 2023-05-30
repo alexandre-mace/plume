@@ -122,10 +122,15 @@ export default function TreemapChart({ computedData }) {
     },
   };
 
+  console.log();
+
   return (
     <div
-      className="chart-container w-full md:h-[60vh] md:w-auto"
+      className={`chart-container w-full md:w-auto`}
       style={{
+        height:
+          (totalSize > 10000 ? 60 : 20 + Math.floor(40 * (totalSize / 10000))) +
+          "vh",
         position: "relative",
         display: "flex",
         justifyContent: "center",
