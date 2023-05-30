@@ -40,6 +40,10 @@ const getCategoryColor = (category) => {
 
 export default function TreemapChart({ computedData }) {
   const options = {
+    animation: {
+      duration: 400,
+      easing: "easeOutCirc",
+    },
     plugins: {
       title: {
         display: true,
@@ -131,7 +135,8 @@ export default function TreemapChart({ computedData }) {
           "vh",
         position: "relative",
         display: "flex",
-        justifyContent: "center",
+        justifyContent: "flex-end",
+        alignItems: "flex-start",
       }}
     >
       <Chart type="treemap" data={config.data} options={options} />
