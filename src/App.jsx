@@ -164,9 +164,9 @@ function App() {
             }`}
           >
             <div
-              className={`rounded-full bg-${
-                loweringTotal ? "green" : "red"
-              }-100 flex h-16 w-16 items-center justify-center p-2 text-4xl`}
+              className={`rounded-full ${
+                loweringTotal ? "bg-green-100" : "bg-red-100"
+              } flex h-16 w-16 items-center justify-center p-2 text-4xl`}
             >
               {loweringTotal && (
                 <div>
