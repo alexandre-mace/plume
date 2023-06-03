@@ -13,12 +13,14 @@
     "@chakra-ui/react": "^2.6.1",
     "@emotion/react": "^11.11.0",
     "@emotion/styled": "^11.11.0",
+    "@radix-ui/react-toast": "^1.1.4",
     "chart.js": "^4.3.0",
     "chartjs-chart-treemap": "^2.3.0",
     "framer-motion": "^10.12.16",
     "react": "^18.2.0",
     "react-chartjs-2": "^5.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "react-hot-toast": "^2.4.1"
   },
   "devDependencies": {
     "@types/react": "^18.0.28",

@@ -1,3 +1,6 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.toaster-wrapper > div:nth-child(n+3) { display: none !important; }
+.toaster-wrapper > div { display: flex !important; }

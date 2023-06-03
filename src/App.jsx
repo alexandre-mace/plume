@@ -42,9 +42,11 @@ import {
   veganAnimalConsumption,
   vegetarianFleshConsumption,
 } from "./domain/data.js";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import computeCategoryTotal from "./utils/computeCategoryTotal.js";
 import getTotalColor from "./utils/getTotalColor.js";
+import toast, { Toaster } from "react-hot-toast";
+
 function App() {
   const [meatReduction, setMeatReduction] = useState(0);
   const [longFlights, setTotalLongFlights] = useState(1);
@@ -132,10 +134,89 @@ function App() {
     }
     return datum;
   });
+
   const total = computedData.reduce((acc, datum) => acc + datum.size, 0);
+
+  useEffect(() => {
+    localStorage.removeItem("previousTotal");
+  }, []);
+
+  useEffect(() => {
+    if (
+      localStorage.getItem("previousTotal") &&
+      parseInt(localStorage.getItem("previousTotal")) !== total
+    ) {
+      let previousTotal = parseInt(localStorage.getItem("previousTotal"));
+      let loweringTotal = previousTotal > total;
+      let reduction = Math.round(
+        Math.abs(
+          (loweringTotal
+            ? (total - previousTotal) / previousTotal
+            : (previousTotal - total) / total) * 100
+        )
+      );
+
+      toast.custom(
+        (t) => (
+          <div
+            className={`bo mx-4 flex items-center gap-4 rounded-md border bg-white px-4 py-3 shadow-sm  ${
+              t.visible ? "animate-enter" : "animate-leave"
+            }`}
+          >
+            <div
+              className={`rounded-full bg-${
+                loweringTotal ? "green" : "red"
+              }-100 p-2 text-4xl`}
+            >
+              {loweringTotal && (
+                <div>
+                  {reduction >= 8 ? "🚀" : reduction >= 5 ? "💪" : "🐣"}
+                </div>
+              )}
+              {!loweringTotal && (
+                <div>
+                  {reduction >= 8 ? "😱" : reduction >= 5 ? "😟" : "😕"}
+                </div>
+              )}
+            </div>
+            <div className={"text-sm font-medium"}>
+              Vous avez {loweringTotal ? "réduit" : "augmenté"} votre empreinte
+              de{" "}
+              <span
+                className={`text-lg font-bold ${
+                  loweringTotal ? "text-green-500" : "text-red-500"
+                }`}
+              >
+                {reduction}
+              </span>{" "}
+              %
+            </div>
+          </div>
+        ),
+        {
+          position: "bottom-center",
+        }
+      );
+    }
+    localStorage.setItem("previousTotal", total);
+  }, [
+    meatReduction,
+    longFlights,
+    mediumFlights,
+    noCar,
+    vegetarian,
+    vegan,
+    noThrash,
+    noHousingFossile,
+    secondHandClothes,
+    flat,
+    keeper,
+    publicDecarb,
+  ]);
 
   return (
     <main className={"mx-auto md:w-full"}>
+      <Toaster containerClassName="toaster-wrapper" />
       <Header />
       <Heading />
       <Settings
@@ -169,32 +250,47 @@ function App() {
         publicDecarb={publicDecarb}
         setPublicDecarb={setPublicDecarb}
       />
-      <div className="flex flex-col gap-4 md:flex-row">
+      <section className="flex flex-col gap-4 md:flex-row">
         <div className="mt-8 md:mt-0 md:w-1/3">
-          <div className={"flex h-full text-center"}>
-            <div className={"mx-auto md:m-auto"}>
-              <div
-                className={`text-3xl font-bold md:text-5xl ${getTotalColor(
-                  total
-                )}`}
-              >
-                {Math.floor(total).toLocaleString()}
+          <div className={"align-start flex h-full justify-center text-center"}>
+            <div className={"mt-24 flex w-full flex-col pl-4"}>
+              <div className={""}>
+                <div
+                  className={`text-3xl font-bold md:text-5xl ${getTotalColor(
+                    total
+                  )}`}
+                >
+                  {Math.floor(total).toLocaleString()}
+                </div>
+                <span className={"text-lg text-slate-600 md:text-xl"}>
+                  total kgCO2eq
+                </span>
+                <div className={"md:text-md text-slate-600"}>
+                  Objectif neutralité carbone : 2T/an/personne
+                </div>
               </div>
-              <span className={"text-lg text-slate-600 md:text-xl"}>
-                total kgCO2eq
-              </span>
-              <div className={"md:text-md text-slate-600"}>
-                Objectif neutralité carbone : 2T/an/personne
+
+              <div className="mb-4 mt-10 h-full w-full text-start">
+                <div className={"mb-2 font-medium"}>Les tops émissions 👇</div>
+                {computedData
+                  .sort((a, b) => b.size - a.size)
+                  .slice(0, 5)
+                  .map((item) => (
+                    <div className={"flex justify-between"} key={item.name}>
+                      <div>{item.name}</div>
+                      <div className={""}>{item.size}</div>
+                    </div>
+                  ))}
               </div>
             </div>
           </div>
         </div>
         <div className="md:w-2/3">
-          <section className={"relative mt-6"}>
+          <div className={"relative mt-6"}>
             <CubeGraph computedData={computedData} />
-          </section>
+          </div>
         </div>
-      </div>
+      </section>
       <div
         className={
           "fixed bottom-4 left-1/2 -translate-x-1/2 rounded-lg bg-white p-2 text-center shadow md:hidden"
