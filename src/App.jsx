@@ -286,7 +286,7 @@ function App() {
           </div>
         </div>
         <div className="md:w-2/3">
-          <div className={"relative mt-6"}>
+          <div className={"relative mt-6 md:pr-4"}>
             <CubeGraph computedData={computedData} />
           </div>
         </div>
