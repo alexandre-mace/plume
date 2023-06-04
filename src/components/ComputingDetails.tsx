@@ -9,7 +9,7 @@ import {
 
 const ComputingDetails = () => (
   <Dialog>
-    <DialogTrigger>
+    <DialogTrigger asChild>
       <button className="inline-flex h-10 items-center justify-center rounded-md border border-input px-4 py-2 text-sm font-medium ring-offset-background transition-colors hover:bg-accent hover:text-accent-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50">
         Détail de calculs
         <svg
@@ -32,29 +32,31 @@ const ComputingDetails = () => (
       <DialogHeader>
         <DialogTitle>Détail de calculs</DialogTitle>
         <DialogDescription>
-          <div className={"mb-2"}>
-            Les calculs présentés sont des estimations illustrant les ordres de
-            grandeur. Pour une estimation plus précise de votre empreinte, vous
-            pouvez utiliser{" "}
-            <a
-              className={"underline"}
-              href="nosgestesclimat.fr/"
-              target={"_blank"}
-              rel={"noreferrer"}
-            >
-              ce simulateur
-            </a>
-            .
-          </div>
-          Les valeurs initiales du graphiques proviennent du{" "}
+          Les calculs présentés sont des estimations illustrant les ordres de
+          grandeur. Pour une estimation plus précise de votre empreinte, vous
+          pouvez utiliser{" "}
           <a
             className={"underline"}
-            href="https://www.carbone4.com/files/graphique_final.png"
+            href="nosgestesclimat.fr/"
             target={"_blank"}
             rel={"noreferrer"}
           >
-            graphique de carbone4/MYCO2.
+            ce simulateur
           </a>
+          .
+        </DialogDescription>
+        <div className={"text-sm text-muted-foreground"}>
+          <div className={"mb-2"}>
+            Les valeurs initiales du graphiques proviennent du{" "}
+            <a
+              className={"underline"}
+              href="https://www.carbone4.com/files/graphique_final.png"
+              target={"_blank"}
+              rel={"noreferrer"}
+            >
+              graphique de carbone4/MYCO2.
+            </a>
+          </div>
           <img
             src="https://www.carbone4.com/files/graphique_final.png"
             alt="l’empreinte carbone française en 2019"
@@ -86,7 +88,7 @@ const ComputingDetails = () => (
             </a>
             .
           </div>
-        </DialogDescription>
+        </div>
       </DialogHeader>
     </DialogContent>
   </Dialog>

@@ -1,5 +1,6 @@
-import ComputingDetails from "./ComputingDetails.tsx";
-import Why from "./Why.tsx";
+import ComputingDetails from "./ComputingDetails";
+import Why from "./Why";
+import ComplementaryInformation from "./ComplementaryInformation";
 
 const Header = () => (
   <header className="flex justify-between">
@@ -7,6 +8,8 @@ const Header = () => (
       <Why />
       <div className={"mx-1"} />
       <ComputingDetails />
+      <div className={"mx-1"} />
+      <ComplementaryInformation />
     </div>
     <div className="flex items-center p-2">
       <div className={"mr-3"}>un outil du</div>

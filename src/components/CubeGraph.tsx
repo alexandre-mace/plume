@@ -13,12 +13,11 @@ import { TreemapController, TreemapElement } from "chartjs-chart-treemap";
 import { Chart } from "react-chartjs-2";
 import {
   buyingCategory,
-  data,
   foodCategory,
   housingCategory,
   publicCategory,
   transportCategory,
-} from "./../domain/data";
+} from "../domain/data";
 
 ChartJS.register(
   CategoryScale,
@@ -30,7 +29,7 @@ ChartJS.register(
   TreemapController,
   TreemapElement
 );
-const getCategoryColor = (category) => {
+const getCategoryColor = (category: string) => {
   if (category === transportCategory) return "blue";
   if (category === foodCategory) return "red";
   if (category === housingCategory) return "green";
@@ -38,7 +37,11 @@ const getCategoryColor = (category) => {
   if (category === publicCategory) return "grey";
 };
 
-export default function TreemapChart({ computedData }) {
+export default function TreemapChart({
+  computedData,
+}: {
+  computedData: Array<object>;
+}) {
   const options = {
     animation: {
       duration: 400,
@@ -59,12 +62,12 @@ export default function TreemapChart({ computedData }) {
         displayColors: false,
         color: "white",
         callbacks: {
-          title(items) {
+          title(items: any) {
             return items[1]
               ? items[1].raw._data.children[0].name
               : items[0].raw._data.children[0].category;
           },
-          label(item) {
+          label(item: any) {
             const {
               _data: { size },
             } = item.raw;
@@ -90,7 +93,7 @@ export default function TreemapChart({ computedData }) {
           labels: {
             display: true,
             color: "white",
-            formatter: (context) => [
+            formatter: (context: any) => [
               context.raw._data.children[0].name,
               Math.floor(context.raw._data.children[0].size),
             ],
@@ -101,7 +104,7 @@ export default function TreemapChart({ computedData }) {
           position: "bottom",
           spacing: 0,
           borderRadius: 0,
-          backgroundColor(context) {
+          backgroundColor(context: any) {
             if (context.type !== "data") {
               return "transparent";
             }
@@ -131,15 +134,13 @@ export default function TreemapChart({ computedData }) {
       ],
     },
   };
-
   return (
     <div
       className={`chart-container mx-auto max-w-full`}
       style={{
         width:
-          (totalSize > 15000
-            ? 100
-            : 20 + Math.floor(80 * (totalSize / 10000))) + "%",
+          (totalSize > 14000 ? 80 : 20 + Math.floor(60 * (totalSize / 14000))) +
+          "%",
         position: "relative",
         display: "flex",
         justifyContent: "flex-end",

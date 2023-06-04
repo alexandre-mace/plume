@@ -31,7 +31,7 @@ import {
   publicCategory,
   publicDecarbRatio,
   transportCategory,
-} from "../domain/data.js";
+} from "../domain/data";
 import {
   Box,
   FormControl,
@@ -75,7 +75,7 @@ const Settings = ({
 }) => (
   <div className="mx-auto mt-6 px-4">
     <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-5">
-      <div className="bg-card text-card-foreground rounded-lg border shadow-sm">
+      <div className="rounded-lg border bg-card text-card-foreground shadow-sm">
         <div className="flex flex-row items-center justify-between space-y-0 p-4 pb-2">
           <h3 className="text-sm font-medium tracking-tight">
             {transportCategory}
@@ -139,7 +139,7 @@ const Settings = ({
           />
         </div>
       </div>
-      <div className="bg-card text-card-foreground rounded-lg border shadow-sm">
+      <div className="rounded-lg border bg-card text-card-foreground shadow-sm">
         <div className="flex flex-row items-center justify-between space-y-0 p-4 pb-2">
           <h3 className="text-sm font-medium tracking-tight">{foodCategory}</h3>
           <span className={"text-2xl"}>🍛</span>
@@ -201,7 +201,7 @@ const Settings = ({
           />
         </div>
       </div>
-      <div className="bg-card text-card-foreground rounded-lg border shadow-sm">
+      <div className="rounded-lg border bg-card text-card-foreground shadow-sm">
         <div className="flex flex-row items-center justify-between space-y-0 p-4 pb-2">
           <h3 className="text-sm font-medium tracking-tight">
             {housingCategory}
@@ -253,7 +253,7 @@ const Settings = ({
           />
         </div>
       </div>
-      <div className="bg-card text-card-foreground rounded-lg border shadow-sm">
+      <div className="rounded-lg border bg-card text-card-foreground shadow-sm">
         <div className="flex flex-row items-center justify-between space-y-0 p-4 pb-2">
           <h3 className="text-sm font-medium tracking-tight">
             {buyingCategory}
@@ -299,7 +299,7 @@ const Settings = ({
           />
         </div>
       </div>
-      <div className="bg-card text-card-foreground rounded-lg border shadow-sm">
+      <div className="rounded-lg border bg-card text-card-foreground shadow-sm">
         <div className="flex flex-row items-center justify-between space-y-0 p-4 pb-2">
           <h3 className="text-sm font-medium tracking-tight">
             {publicCategory}

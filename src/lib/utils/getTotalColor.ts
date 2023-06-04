@@ -1,4 +1,4 @@
-const getTotalColor = (total) => {
+const getTotalColor = (total: number) => {
   if (total > 6000) {
     return "text-red-500";
   }

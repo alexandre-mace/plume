@@ -1,1 +1,1 @@
-<script type="module" src="/src/main.tsx"></script>;
+/// <reference types="vite/client" />

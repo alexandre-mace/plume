@@ -1,4 +1,4 @@
-const computeCategoryTotal = (category, computedData) => {
+const computeCategoryTotal = (category: string, computedData: Array<any>) => {
   return Math.floor(
     computedData
       .filter((datum) => datum.category === category)
