@@ -1,5 +1,5 @@
 import "./App.css";
-import CubeGraph from "./components/CubeGraph.jsx";
+import CubeGraph from "./components/CubeGraph";
 import Header from "./components/Header.jsx";
 import Heading from "./components/Heading.jsx";
 import Settings from "./components/Settings.jsx";

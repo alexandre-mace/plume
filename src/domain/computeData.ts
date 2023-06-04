@@ -36,18 +36,18 @@ import {
 } from "./data";
 
 const computeData = (
-  vegan,
-  vegetarian,
-  noCar,
-  noThrash,
-  keeper,
-  flat,
-  noHousingFossile,
-  secondHandClothes,
-  publicDecarb,
-  meatReduction,
-  longFlights,
-  mediumFlights
+  vegan: boolean,
+  vegetarian: boolean,
+  noCar: boolean,
+  noThrash: boolean,
+  keeper: boolean,
+  flat: boolean,
+  noHousingFossile: boolean,
+  secondHandClothes: boolean,
+  publicDecarb: boolean,
+  meatReduction: number,
+  longFlights: number,
+  mediumFlights: number
 ) => {
   return data.map((datum) => {
     if (

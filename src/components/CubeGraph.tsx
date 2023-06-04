@@ -7,6 +7,8 @@ import {
   Title,
   Tooltip,
   Legend,
+  ChartConfiguration,
+  ChartOptions,
 } from "chart.js";
 import { color } from "chart.js/helpers";
 import { TreemapController, TreemapElement } from "chartjs-chart-treemap";
@@ -36,16 +38,17 @@ const getCategoryColor = (category: string) => {
   if (category === housingCategory) return "green";
   if (category === buyingCategory) return "purple";
   if (category === publicCategory) return "grey";
+  return "transparent";
 };
 
 export default function TreemapChart({
   computedData,
 }: {
-  computedData: Array<object>;
+  computedData: Array<any>;
 }) {
   const { height, width } = useWindowDimensions();
 
-  const options = {
+  const options: ChartOptions = {
     animation: {
       duration: 400,
       easing: "easeOutCirc",
@@ -63,7 +66,6 @@ export default function TreemapChart({
       },
       tooltip: {
         displayColors: false,
-        color: "white",
         callbacks: {
           title(items: any) {
             return items[1]
@@ -85,10 +87,12 @@ export default function TreemapChart({
 
   const totalSize = computedData.reduce((acc, datum) => acc + datum.size, 0);
 
-  const config = {
+  const config: ChartConfiguration = {
     type: "treemap",
     data: {
       datasets: [
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
         {
           tree: computedData,
           key: "size",
@@ -104,7 +108,6 @@ export default function TreemapChart({
           captions: {
             display: false,
           },
-          position: "bottom",
           spacing: 0,
           borderRadius: 0,
           backgroundColor(context: any) {

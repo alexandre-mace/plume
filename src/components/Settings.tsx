@@ -72,6 +72,36 @@ const Settings = ({
   setPublicDecarb,
   mediumFlights,
   setTotalMediumFlights,
+}: {
+  transportSize: number;
+  foodSize: number;
+  housingSize: number;
+  publicSize: number;
+  buyingSize: number;
+  meatReduction: number;
+  setMeatReduction: any;
+  longFlights: number;
+  setTotalLongFlights: any;
+  noCar: boolean;
+  setNoCar: any;
+  setVegan: any;
+  vegan: boolean;
+  setNoHousingFossile: any;
+  noHousingFossile: boolean;
+  setNoThrash: any;
+  noThrash: boolean;
+  secondHandClothes: boolean;
+  setSecondHandClothes: any;
+  setVegetarian: any;
+  vegetarian: boolean;
+  flat: boolean;
+  setFlat: any;
+  keeper: boolean;
+  setKeeper: any;
+  publicDecarb: boolean;
+  setPublicDecarb: any;
+  mediumFlights: number;
+  setTotalMediumFlights: any;
 }) => (
   <div className="mx-auto mt-6 px-4">
     <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-5">
@@ -93,7 +123,7 @@ const Settings = ({
             options={[0, 1, 2, 3, 4]}
             name={"longFlights"}
             defaultValue={0}
-            onChange={(value) => {
+            onChange={(value: any) => {
               setTotalMediumFlights(parseInt(value));
             }}
             value={mediumFlights}
@@ -112,7 +142,7 @@ const Settings = ({
             options={[0, 1, 2, 3, 4]}
             name={"longFlights"}
             defaultValue={0}
-            onChange={(value) => {
+            onChange={(value: any) => {
               setTotalLongFlights(parseInt(value));
             }}
             value={longFlights}
@@ -155,7 +185,7 @@ const Settings = ({
             options={[0, 2, 3, 4]}
             name={"meatReduction"}
             defaultValue={0}
-            onChange={(value) => {
+            onChange={(value: any) => {
               setMeatReduction(parseInt(value));
             }}
             disabled={vegetarian || vegan}
@@ -315,7 +345,7 @@ const Settings = ({
           <CustomSwitch
             id={"public"}
             value={publicDecarb}
-            label={"Services publics décarbonés"}
+            label="Services publics décarbonés"
             setOnChange={setPublicDecarb}
           />
           <Gain
@@ -348,7 +378,7 @@ const Settings = ({
   </div>
 );
 
-function RadioCard(props) {
+function RadioCard(props: any) {
   const { getInputProps, getRadioProps } = useRadio(props);
 
   const input = getInputProps();
@@ -387,6 +417,13 @@ function RadioGroup({
   onChange,
   value,
   disabled = false,
+}: {
+  options: Array<any>;
+  name: string;
+  defaultValue: any;
+  onChange: any;
+  value: any;
+  disabled?: boolean;
 }) {
   const { getRootProps, getRadioProps } = useRadioGroup({
     name: name,
@@ -399,7 +436,7 @@ function RadioGroup({
 
   return (
     <HStack {...group}>
-      {options.map((value) => {
+      {options.map((value: any) => {
         const radio = getRadioProps({ value });
         return (
           <RadioCard key={value} {...radio} disabled={disabled}>
@@ -411,7 +448,19 @@ function RadioGroup({
   );
 }
 
-function CustomSwitch({ id, label, value, setOnChange, disabled = false }) {
+function CustomSwitch({
+  id,
+  label,
+  value,
+  setOnChange,
+  disabled = false,
+}: {
+  id: string;
+  label: string;
+  value: any;
+  setOnChange: any;
+  disabled?: boolean;
+}) {
   return (
     <FormControl
       display="flex"
@@ -443,6 +492,11 @@ const Gain = ({
   greenCondition,
   additionalClass = "",
   disabled = false,
+}: {
+  label: string;
+  greenCondition: boolean;
+  additionalClass?: string;
+  disabled?: boolean;
 }) => (
   <span
     className={`inline-block text-xs ${
