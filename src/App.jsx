@@ -253,7 +253,7 @@ function App() {
       <section className="flex flex-col gap-4 md:flex-row">
         <div className="mt-8 md:mt-0 md:w-1/3">
           <div className={"align-start flex h-full justify-center text-center"}>
-            <div className={"mt-24 flex w-full flex-col pl-4"}>
+            <div className={"mt-14 flex w-full flex-col pl-4"}>
               <div className={""}>
                 <div
                   className={`text-3xl font-bold md:text-5xl ${getTotalColor(

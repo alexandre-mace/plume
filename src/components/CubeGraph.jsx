@@ -95,6 +95,12 @@ export default function TreemapChart({ computedData }) {
               Math.floor(context.raw._data.children[0].size),
             ],
           },
+          captions: {
+            display: false,
+          },
+          position: "bottom",
+          spacing: 0,
+          borderRadius: 0,
           backgroundColor(context) {
             if (context.type !== "data") {
               return "transparent";
@@ -128,11 +134,12 @@ export default function TreemapChart({ computedData }) {
 
   return (
     <div
-      className={`chart-container w-full md:w-auto`}
+      className={`chart-container mx-auto max-w-full`}
       style={{
-        height:
-          (totalSize > 15000 ? 60 : 20 + Math.floor(40 * (totalSize / 10000))) +
-          "vh",
+        width:
+          (totalSize > 15000
+            ? 100
+            : 20 + Math.floor(80 * (totalSize / 10000))) + "%",
         position: "relative",
         display: "flex",
         justifyContent: "flex-end",
