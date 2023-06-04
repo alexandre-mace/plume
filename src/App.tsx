@@ -17,6 +17,7 @@ import TopEmissions from "./components/TopEmissions";
 import Footer from "./components/Footer";
 import handleToast from "./lib/handleToast";
 import computeData from "./domain/computeData";
+import TotalEmissions from "./components/TotalEmissions";
 
 function App() {
   const [meatReduction, setMeatReduction] = useState(0);
@@ -111,6 +112,7 @@ function App() {
         <div className="mt-8 md:mt-0 md:w-1/3">
           <div className={"align-start flex h-full justify-center text-center"}>
             <div className={"mt-14 flex w-full flex-col pl-4"}>
+              <TotalEmissions total={total} />
               <TopEmissions computedData={computedData} />
             </div>
           </div>
