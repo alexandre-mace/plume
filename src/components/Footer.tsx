@@ -1,5 +1,5 @@
 const Footer = () => (
-  <footer className={"mb-2 mt-6 flex"}>
+  <footer className={"relative z-20 flex bg-white pb-2 pt-6"}>
     <div className={"mx-auto flex"}>
       Fait avec amour par{" "}
       <a

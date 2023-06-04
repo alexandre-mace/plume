@@ -18,6 +18,7 @@ import {
   publicCategory,
   transportCategory,
 } from "../domain/data";
+import useWindowDimensions from "../hooks/useWindowDimensions";
 
 ChartJS.register(
   CategoryScale,
@@ -42,6 +43,8 @@ export default function TreemapChart({
 }: {
   computedData: Array<object>;
 }) {
+  const { height, width } = useWindowDimensions();
+
   const options = {
     animation: {
       duration: 400,
@@ -134,13 +137,16 @@ export default function TreemapChart({
       ],
     },
   };
+
+  const maxWidthSize = width > 800 ? 80 : 100;
   return (
     <div
       className={`chart-container mx-auto max-w-full`}
       style={{
         width:
-          (totalSize > 14000 ? 80 : 20 + Math.floor(60 * (totalSize / 14000))) +
-          "%",
+          (totalSize > 14000
+            ? maxWidthSize
+            : 20 + Math.floor((maxWidthSize - 20) * (totalSize / 14000))) + "%",
         position: "relative",
         display: "flex",
         justifyContent: "flex-end",

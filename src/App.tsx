@@ -18,6 +18,7 @@ import Footer from "./components/Footer";
 import handleToast from "./lib/handleToast";
 import computeData from "./domain/computeData";
 import TotalEmissions from "./components/TotalEmissions";
+import MobileTotalEmissions from "./components/MobileTotalEmissions";
 
 function App() {
   const [meatReduction, setMeatReduction] = useState(0);
@@ -108,10 +109,10 @@ function App() {
         publicDecarb={publicDecarb}
         setPublicDecarb={setPublicDecarb}
       />
-      <section className="flex flex-col gap-4 md:flex-row">
-        <div className="mt-8 md:mt-0 md:w-1/3">
+      <section className="relative z-20 flex flex-col gap-4 bg-white md:flex-row">
+        <div className="md:mt-0 md:w-1/3">
           <div className={"align-start flex h-full justify-center text-center"}>
-            <div className={"mt-14 flex w-full flex-col pl-4"}>
+            <div className={"mt-6 flex w-full flex-col px-4 md:mt-14"}>
               <TotalEmissions total={total} />
               <TopEmissions computedData={computedData} />
             </div>
@@ -123,6 +124,7 @@ function App() {
           </div>
         </div>
       </section>
+      <MobileTotalEmissions total={total} />
       <Footer />
     </main>
   );
