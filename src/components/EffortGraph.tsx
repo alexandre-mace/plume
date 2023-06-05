@@ -45,8 +45,8 @@ export default function EffortGraph({
         color: "#fff",
         formatter: function (value, context) {
           const percentage = Math.round((value / total) * 100);
-          return percentage > 7
-            ? percentage > 10
+          return percentage > 7 && value >= 1000
+            ? percentage > 10 && value >= 1000
               ? context.dataset.label + " " + value
               : context.dataset.label
             : context.dataset.label?.split(" ")[
@@ -97,11 +97,16 @@ export default function EffortGraph({
       })),
   };
 
+  const maxWidthSize = 100;
   return (
     <div
-      className={`chart-container z-30 mx-auto w-full`}
+      className={`chart-container z-30 mx-auto`}
       style={{
         position: "relative",
+        width:
+          (total > 14000
+            ? maxWidthSize
+            : 20 + Math.floor((maxWidthSize - 20) * (total / 14000))) + "vw",
         display: "flex",
         justifyContent: "flex-end",
         alignItems: "flex-start",
