@@ -109,7 +109,15 @@ export default function EffortGraph({
     >
       <Bar
         height={130}
+        /*
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment */
+        /*
+// @ts-ignore */
         options={options}
+        /*
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment */
+        /*
+  // @ts-ignore */
         data={chartData}
         plugins={[ChartDataLabels]}
       />
