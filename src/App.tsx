@@ -108,6 +108,7 @@ function App() {
         setKeeper={setKeeper}
         publicDecarb={publicDecarb}
         setPublicDecarb={setPublicDecarb}
+        total={total}
       />
       <section className="relative z-20 flex flex-col gap-4 bg-white md:flex-row">
         <div className="md:mt-0 md:w-1/3">

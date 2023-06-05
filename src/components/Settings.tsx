@@ -72,6 +72,7 @@ const Settings = ({
   setPublicDecarb,
   mediumFlights,
   setTotalMediumFlights,
+  total,
 }: {
   transportSize: number;
   foodSize: number;
@@ -102,6 +103,7 @@ const Settings = ({
   setPublicDecarb: any;
   mediumFlights: number;
   setTotalMediumFlights: any;
+  total: number;
 }) => (
   <div className="mx-auto mt-6 px-4">
     <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-5">
@@ -118,7 +120,9 @@ const Settings = ({
           </div>
           <span className={"inline-block text-xs text-slate-600"}>kgCO2eq</span>
           <div className="mt-2"></div>
-          <div className={"mb-1 me-1 text-sm"}>Nombre de moyens courriers</div>
+          <div className={"mb-1 me-1 text-sm"}>
+            Nombre de moyens courriers (3-5h)
+          </div>
           <RadioGroup
             options={[0, 1, 2, 3, 4]}
             name={"longFlights"}
@@ -135,9 +139,12 @@ const Settings = ({
                 : mediumFlightCost
             }kgCO2eq) 🚀`}
             greenCondition={mediumFlights === 0}
+            total={total}
           />
           <div className="mt-1"></div>
-          <div className={"mb-1 me-1 text-sm"}>Nombre de longs courriers</div>
+          <div className={"mb-1 me-1 text-sm"}>
+            Nombre de longs courriers (+5h)
+          </div>
           <RadioGroup
             options={[0, 1, 2, 3, 4]}
             name={"longFlights"}
@@ -154,6 +161,7 @@ const Settings = ({
                 : longFlightCost
             }kgCO2eq) 🚀`}
             greenCondition={longFlights === 0}
+            total={total}
           />
           <div className="mt-1"></div>
           <CustomSwitch
@@ -166,6 +174,7 @@ const Settings = ({
             label={`(${noCar ? "-" : "+"}${defaultCarCost}kgCO2eq) 🚀`}
             greenCondition={noCar}
             additionalClass={`-translate-y-2`}
+            total={total}
           />
         </div>
       </div>
@@ -199,6 +208,7 @@ const Settings = ({
             }kgCO2eq) 💪`}
             disabled={vegetarian || vegan}
             greenCondition={meatReduction >= 2}
+            total={total}
           />
           <div className="mt-1"></div>
           <CustomSwitch
@@ -215,6 +225,7 @@ const Settings = ({
             greenCondition={vegetarian}
             disabled={vegan}
             additionalClass={"-translate-y-2"}
+            total={total}
           />
           <CustomSwitch
             id={"vegan"}
@@ -228,6 +239,7 @@ const Settings = ({
             }kgCO2eq) 🚀`}
             greenCondition={vegan}
             additionalClass={"-translate-y-2"}
+            total={total}
           />
         </div>
       </div>
@@ -256,6 +268,7 @@ const Settings = ({
             }kgCO2eq) 🚀`}
             greenCondition={noHousingFossile}
             additionalClass={"-translate-y-2"}
+            total={total}
           />
           <CustomSwitch
             id={"thrash"}
@@ -267,6 +280,7 @@ const Settings = ({
             label={`(${noThrash ? "-" : "+"}${defaultThrashCost}kgCO2eq) 🐣`}
             greenCondition={noThrash}
             additionalClass={"-translate-y-2"}
+            total={total}
           />
           <CustomSwitch
             id={"flat"}
@@ -280,6 +294,7 @@ const Settings = ({
             )}kgCO2eq) 💪`}
             greenCondition={flat}
             additionalClass={"-translate-y-2"}
+            total={total}
           />
         </div>
       </div>
@@ -308,6 +323,7 @@ const Settings = ({
             }${defaultClothesCost}kgCO2eq) 🐣`}
             greenCondition={secondHandClothes}
             additionalClass={"-translate-y-2"}
+            total={total}
           />
           <CustomSwitch
             id={"keep"}
@@ -326,6 +342,7 @@ const Settings = ({
             )}kgCO2eq) 💪`}
             greenCondition={keeper}
             additionalClass={"-translate-y-2"}
+            total={total}
           />
         </div>
       </div>
@@ -371,6 +388,7 @@ const Settings = ({
             )}kgCO2eq) 🚀`}
             greenCondition={publicDecarb}
             additionalClass={"-translate-y-2"}
+            total={total}
           />
         </div>
       </div>
@@ -490,6 +508,7 @@ function CustomSwitch({
 const Gain = ({
   label,
   greenCondition,
+  total,
   additionalClass = "",
   disabled = false,
 }: {
@@ -497,18 +516,33 @@ const Gain = ({
   greenCondition: boolean;
   additionalClass?: string;
   disabled?: boolean;
-}) => (
-  <span
-    className={`inline-block text-xs ${
-      disabled
-        ? "text-gray-500"
-        : greenCondition
-        ? "text-green-500"
-        : "text-red-500"
-    } ${additionalClass}`}
-  >
-    {label}
-  </span>
-);
+  total: number;
+}) => {
+  const numbersInLabel = label.match(/^\d+|\d+\b|\d+(?=\w)/g);
+  const value =
+    numbersInLabel !== null && numbersInLabel.length > 0
+      ? numbersInLabel.map(function (v) {
+          return +v;
+        })[0]
+      : 0;
+  const percentage = Math.round((value / total) * 100);
+  return (
+    <span
+      className={`inline-block text-xs ${
+        disabled
+          ? "text-gray-500"
+          : greenCondition
+          ? "text-green-500"
+          : "text-red-500"
+      } ${additionalClass}`}
+    >
+      <span className={"mr-1 inline-block font-extrabold"}>
+        {label.charAt(1)}
+        {percentage}%{" "}
+      </span>
+      ({label.split(label.charAt(1)).pop()}
+    </span>
+  );
+};
 
 export default Settings;
