@@ -13,14 +13,8 @@ import {
 import { color } from "chart.js/helpers";
 import { TreemapController, TreemapElement } from "chartjs-chart-treemap";
 import { Chart } from "react-chartjs-2";
-import {
-  buyingCategory,
-  foodCategory,
-  housingCategory,
-  publicCategory,
-  transportCategory,
-} from "../domain/data";
 import useWindowDimensions from "../hooks/useWindowDimensions";
+import getCategoryColor from "../domain/getCategoryColor";
 
 ChartJS.register(
   CategoryScale,
@@ -32,14 +26,6 @@ ChartJS.register(
   TreemapController,
   TreemapElement
 );
-const getCategoryColor = (category: string) => {
-  if (category === transportCategory) return "blue";
-  if (category === foodCategory) return "red";
-  if (category === housingCategory) return "green";
-  if (category === buyingCategory) return "purple";
-  if (category === publicCategory) return "grey";
-  return "transparent";
-};
 
 export default function TreemapChart({
   computedData,

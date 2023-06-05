@@ -17,15 +17,15 @@ const house = "Maison 🏠";
 const building = "Construction 🏗️";
 const leisure = "Loisirs ⛱️";
 const electronic = "Électronique, telecoms 💻";
-const others = "Autres";
+const others = "Autres 😶";
 const bank = "Assurance, banque 🏦";
 const healthEducation = "Santé, éducation 🧑‍🏫";
 const health = "Santé 🧑‍⚕️";
 const teaching = "Enseignement 🧑‍🏫";
-const culture = "Sport, culture";
+const culture = "Sport, culture 🖼️";
 const infrastructure = "Infrastructures 🏤";
 const administration = "Administration et défense 📝";
-const otherTransports = "Autres transports";
+const otherTransports = "Autres transports 🚋";
 
 const defaultCarCost = 2030;
 const defaultMeatCost = 920;
@@ -49,6 +49,9 @@ const defaultInfrastructureCost = 200;
 const defaultCultureCost = 90;
 const defaultOtherPublicCost = 270;
 const defaultOtherTransportCost = 190;
+const defaultDrinksCost = 450;
+const defaultVegetablesCost = 240;
+const defaultOtherFoodCost = 230;
 const longFlightCost = 2000;
 const mediumFlightCost = 850;
 const veganAnimalConsumption = 0;
@@ -58,54 +61,92 @@ const keeperRatio = 2;
 const flatVsHouseRatio = 2;
 const electricityHeatingRatio = 2;
 const publicDecarbRatio = 5.5;
+const sevenMnShower = 0.8;
 
 const data = [
   {
-    name: otherTransports,
-    size: defaultOtherTransportCost,
-    category: transportCategory,
+    label: transportCategory,
+    children: [
+      {
+        name: otherTransports,
+        size: defaultOtherTransportCost,
+        category: transportCategory,
+      },
+      { name: airplane, size: 430, category: transportCategory },
+      { name: car, size: defaultCarCost, category: transportCategory },
+    ],
   },
-  { name: airplane, size: 430, category: transportCategory },
-  { name: car, size: defaultCarCost, category: transportCategory },
-  { name: meat, size: defaultMeatCost, category: foodCategory },
-  { name: "Boissons 🥤", size: 450, category: foodCategory },
-  { name: milkEggs, size: defaultMilkEggsCost, category: foodCategory },
-  { name: "Fruits et légumes 🥕", size: 240, category: foodCategory },
-  { name: fish, size: defaultFishCost, category: foodCategory },
-  { name: others, size: 230, category: foodCategory },
-  { name: heating, size: defaultFossileHeatingCost, category: housingCategory },
-  { name: building, size: defaultBuildCost, category: housingCategory },
   {
-    name: electricity,
-    size: defaultElectricityHouseCost,
-    category: housingCategory,
+    label: foodCategory,
+    children: [
+      { name: meat, size: defaultMeatCost, category: foodCategory },
+      { name: "Boissons 🥤", size: defaultDrinksCost, category: foodCategory },
+      { name: milkEggs, size: defaultMilkEggsCost, category: foodCategory },
+      {
+        name: "Fruits et légumes 🥕",
+        size: defaultVegetablesCost,
+        category: foodCategory,
+      },
+      { name: fish, size: defaultFishCost, category: foodCategory },
+      { name: others, size: defaultOtherFoodCost, category: foodCategory },
+    ],
   },
-  { name: thrash, size: defaultThrashCost, category: housingCategory },
-  { name: house, size: defaultHouseCost, category: buyingCategory },
-  { name: leisure, size: defaultLeisureCost, category: buyingCategory },
-  { name: electronic, size: defaultElectronicCost, category: buyingCategory },
-  { name: clothes, size: defaultClothesCost, category: buyingCategory },
-  { name: bank, size: defaultBankCost, category: buyingCategory },
   {
-    name: healthEducation,
-    size: defaultHealthEducationCost,
-    category: buyingCategory,
+    label: housingCategory,
+    children: [
+      {
+        name: heating,
+        size: defaultFossileHeatingCost,
+        category: housingCategory,
+      },
+      { name: building, size: defaultBuildCost, category: housingCategory },
+      {
+        name: electricity,
+        size: defaultElectricityHouseCost,
+        category: housingCategory,
+      },
+      { name: thrash, size: defaultThrashCost, category: housingCategory },
+    ],
   },
-  { name: others, size: defaultOtherBuyingCost, category: buyingCategory },
   {
-    name: administration,
-    size: defaultAdministrationCost,
-    category: publicCategory,
+    label: buyingCategory,
+    children: [
+      { name: house, size: defaultHouseCost, category: buyingCategory },
+      { name: leisure, size: defaultLeisureCost, category: buyingCategory },
+      {
+        name: electronic,
+        size: defaultElectronicCost,
+        category: buyingCategory,
+      },
+      { name: clothes, size: defaultClothesCost, category: buyingCategory },
+      { name: bank, size: defaultBankCost, category: buyingCategory },
+      {
+        name: healthEducation,
+        size: defaultHealthEducationCost,
+        category: buyingCategory,
+      },
+      { name: others, size: defaultOtherBuyingCost, category: buyingCategory },
+    ],
   },
-  { name: teaching, size: defaultTeachingCost, category: publicCategory },
-  { name: health, size: defaultHealthCost, category: publicCategory },
   {
-    name: infrastructure,
-    size: defaultInfrastructureCost,
-    category: publicCategory,
+    label: publicCategory,
+    children: [
+      {
+        name: administration,
+        size: defaultAdministrationCost,
+        category: publicCategory,
+      },
+      { name: teaching, size: defaultTeachingCost, category: publicCategory },
+      { name: health, size: defaultHealthCost, category: publicCategory },
+      {
+        name: infrastructure,
+        size: defaultInfrastructureCost,
+        category: publicCategory,
+      },
+      { name: culture, size: defaultCultureCost, category: publicCategory },
+      { name: others, size: defaultOtherPublicCost, category: publicCategory },
+    ],
   },
-  { name: culture, size: defaultCultureCost, category: publicCategory },
-  { name: others, size: defaultOtherPublicCost, category: publicCategory },
 ];
 
 export {
@@ -168,4 +209,8 @@ export {
   defaultAdministrationCost,
   defaultOtherTransportCost,
   mediumFlightCost,
+  defaultOtherFoodCost,
+  defaultVegetablesCost,
+  defaultDrinksCost,
+  sevenMnShower,
 };

@@ -1,5 +1,5 @@
 const Heading = () => (
-  <section className="relative mx-auto max-w-5xl">
+  <section className="relative mx-auto mt-5 max-w-5xl px-4 md:mt-0">
     <h1 className="text-center text-3xl font-extrabold tracking-tight text-slate-900">
       Reduce 🪶
     </h1>

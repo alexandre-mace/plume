@@ -6,6 +6,7 @@ import {
   defaultCarCost,
   defaultClothesCost,
   defaultCultureCost,
+  defaultDrinksCost,
   defaultElectricityHouseCost,
   defaultElectronicCost,
   defaultFishCost,
@@ -18,10 +19,12 @@ import {
   defaultMeatCost,
   defaultMilkEggsCost,
   defaultOtherBuyingCost,
+  defaultOtherFoodCost,
   defaultOtherPublicCost,
   defaultOtherTransportCost,
   defaultTeachingCost,
   defaultThrashCost,
+  defaultVegetablesCost,
   flatVsHouseRatio,
   foodCategory,
   housingCategory,
@@ -73,6 +76,10 @@ const Settings = ({
   mediumFlights,
   setTotalMediumFlights,
   total,
+  localFood,
+  setLocalFood,
+  shortShowers,
+  setShortShowers,
 }: {
   transportSize: number;
   foodSize: number;
@@ -104,6 +111,10 @@ const Settings = ({
   mediumFlights: number;
   setTotalMediumFlights: any;
   total: number;
+  localFood: boolean;
+  setLocalFood: any;
+  shortShowers: boolean;
+  setShortShowers: any;
 }) => (
   <div className="mx-auto mt-6 px-4">
     <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-5">
@@ -115,10 +126,19 @@ const Settings = ({
           <span className={"text-2xl"}>✈️</span>
         </div>
         <div className="p-4 pt-0">
-          <div className="me-1 inline-block text-2xl font-bold">
-            {transportSize}
+          <div className={"flex items-end justify-between"}>
+            <div>
+              <div className="me-1 inline-block text-2xl font-bold">
+                {transportSize}
+              </div>
+              <span className={"inline-block text-xs text-slate-600"}>
+                kgCO2eq
+              </span>
+            </div>
+            <div className={"text-lg font-bold"}>
+              {Math.round((transportSize / total) * 100)}%
+            </div>
           </div>
-          <span className={"inline-block text-xs text-slate-600"}>kgCO2eq</span>
           <div className="mt-2"></div>
           <div className={"mb-1 me-1 text-sm"}>
             Nombre de moyens courriers (3-5h)
@@ -184,8 +204,19 @@ const Settings = ({
           <span className={"text-2xl"}>🍛</span>
         </div>
         <div className="p-4 pt-0">
-          <div className="me-1 inline-block text-2xl font-bold">{foodSize}</div>
-          <span className={"inline-block text-xs text-slate-600"}>kgCO2eq</span>
+          <div className={"flex items-end justify-between"}>
+            <div>
+              <div className="me-1 inline-block text-2xl font-bold">
+                {foodSize}
+              </div>
+              <span className={"inline-block text-xs text-slate-600"}>
+                kgCO2eq
+              </span>
+            </div>
+            <div className={"text-lg font-bold"}>
+              {Math.round((foodSize / total) * 100)}%
+            </div>
+          </div>
           <div className="mt-2"></div>
           <div className={"mb-1 text-sm"}>
             Divise ma consommation de viande par
@@ -241,6 +272,26 @@ const Settings = ({
             additionalClass={"-translate-y-2"}
             total={total}
           />
+          <CustomSwitch
+            id={"local"}
+            value={localFood}
+            label={"Je mange local"}
+            setOnChange={setLocalFood}
+          />
+          <Gain
+            label={`(${localFood ? "-" : "+"}${Math.round(
+              (defaultMeatCost +
+                defaultFishCost +
+                defaultMilkEggsCost +
+                defaultVegetablesCost +
+                defaultOtherFoodCost +
+                defaultDrinksCost) *
+                0.13
+            )}kgCO2eq) 🐣`}
+            greenCondition={localFood}
+            additionalClass={"-translate-y-2"}
+            total={total}
+          />
         </div>
       </div>
       <div className="rounded-lg border bg-card text-card-foreground shadow-sm">
@@ -251,10 +302,19 @@ const Settings = ({
           <span className={"text-2xl"}>🏠</span>
         </div>
         <div className="p-4 pt-0">
-          <div className="me-1 inline-block text-2xl font-bold">
-            {housingSize}
+          <div className={"flex items-end justify-between"}>
+            <div>
+              <div className="me-1 inline-block text-2xl font-bold">
+                {housingSize}
+              </div>
+              <span className={"inline-block text-xs text-slate-600"}>
+                kgCO2eq
+              </span>
+            </div>
+            <div className={"text-lg font-bold"}>
+              {Math.round((housingSize / total) * 100)}%
+            </div>
           </div>
-          <span className={"inline-block text-xs text-slate-600"}>kgCO2eq</span>
           <div className="mt-2"></div>
           <CustomSwitch
             id={"housing-fossile"}
@@ -306,10 +366,19 @@ const Settings = ({
           <span className={"text-2xl"}>🎁</span>
         </div>
         <div className="p-4 pt-0">
-          <div className="me-1 inline-block text-2xl font-bold">
-            {buyingSize}
+          <div className={"flex items-end justify-between"}>
+            <div>
+              <div className="me-1 inline-block text-2xl font-bold">
+                {buyingSize}
+              </div>
+              <span className={"inline-block text-xs text-slate-600"}>
+                kgCO2eq
+              </span>
+            </div>
+            <div className={"text-lg font-bold"}>
+              {Math.round((buyingSize / total) * 100)}%
+            </div>
           </div>
-          <span className={"inline-block text-xs text-slate-600"}>kgCO2eq</span>
           <div className="mt-2"></div>
           <CustomSwitch
             id={"clothes"}
@@ -354,10 +423,19 @@ const Settings = ({
           <span className={"text-2xl"}>🏢</span>
         </div>
         <div className="p-4 pt-0">
-          <div className="me-1 inline-block text-2xl font-bold">
-            {publicSize}
+          <div className={"flex items-end justify-between"}>
+            <div>
+              <div className="me-1 inline-block text-2xl font-bold">
+                {publicSize}
+              </div>
+              <span className={"inline-block text-xs text-slate-600"}>
+                kgCO2eq
+              </span>
+            </div>
+            <div className={"text-lg font-bold"}>
+              {Math.round((publicSize / total) * 100)}%
+            </div>
           </div>
-          <span className={"inline-block text-xs text-slate-600"}>kgCO2eq</span>
           <div className="mt-3"></div>
           <CustomSwitch
             id={"public"}
