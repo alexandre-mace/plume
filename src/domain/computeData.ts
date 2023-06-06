@@ -26,10 +26,12 @@ import {
   mediumFlightCost,
   milkEggs,
   noThrashPolicy,
+  oneYoutubeStreamingHourForAYear,
   others,
   otherTransports,
   publicCategory,
   publicDecarbRatio,
+  sevenMnShower,
   teaching,
   thrash,
   veganAnimalConsumption,
@@ -50,7 +52,8 @@ const computeData = (
   longFlights: number,
   mediumFlights: number,
   localFood: boolean,
-  shortShowers: boolean
+  shortShowers: boolean,
+  stopYoutubeStreaming: boolean
 ) => {
   return data.reduce((acc: Array<any>, category) => {
     category.children.forEach((datum) => {
@@ -70,7 +73,8 @@ const computeData = (
           longFlights,
           mediumFlights,
           localFood,
-          shortShowers
+          shortShowers,
+          stopYoutubeStreaming
         )
       );
     });
@@ -93,7 +97,8 @@ const computeDatumSize = (
   longFlights: number,
   mediumFlights: number,
   localFood: boolean,
-  shortShowers: boolean
+  shortShowers: boolean,
+  stopYoutubeSteaming: boolean
 ) => {
   if (
     vegan &&
@@ -139,11 +144,26 @@ const computeDatumSize = (
   if (noHousingFossile && datum.name === heating) {
     return { ...datum, size: 0 };
   }
+  if (!noHousingFossile && datum.name === heating) {
+    return { ...datum, size: datum.size - (shortShowers ? sevenMnShower : 0) };
+  }
   if (noHousingFossile && datum.name === electricity && flat) {
-    return { ...datum, size: datum.size };
+    return {
+      ...datum,
+      size:
+        datum.size * 1.3 -
+        (stopYoutubeSteaming ? oneYoutubeStreamingHourForAYear : 0) -
+        (shortShowers ? sevenMnShower / 3 : 0),
+    };
   }
   if (noHousingFossile && datum.name === electricity) {
-    return { ...datum, size: datum.size * electricityHeatingRatio };
+    return {
+      ...datum,
+      size:
+        datum.size * electricityHeatingRatio -
+        (stopYoutubeSteaming ? oneYoutubeStreamingHourForAYear : 0) -
+        (shortShowers ? sevenMnShower / 3 : 0),
+    };
   }
   if (secondHandClothes && datum.name === clothes) {
     return { ...datum, size: 0 };

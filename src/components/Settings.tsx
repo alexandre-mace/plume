@@ -31,8 +31,10 @@ import {
   keeperRatio,
   longFlightCost,
   mediumFlightCost,
+  oneYoutubeStreamingHourForAYear,
   publicCategory,
   publicDecarbRatio,
+  sevenMnShower,
   transportCategory,
 } from "../domain/data";
 import {
@@ -80,6 +82,8 @@ const Settings = ({
   setLocalFood,
   shortShowers,
   setShortShowers,
+  stopYoutubeStreaming,
+  setStopYoutubeStreaming,
 }: {
   transportSize: number;
   foodSize: number;
@@ -115,6 +119,8 @@ const Settings = ({
   setLocalFood: any;
   shortShowers: boolean;
   setShortShowers: any;
+  stopYoutubeStreaming: boolean;
+  setStopYoutubeStreaming: any;
 }) => (
   <div className="mx-auto mt-6 px-4">
     <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-5">
@@ -356,6 +362,20 @@ const Settings = ({
             additionalClass={"-translate-y-2"}
             total={total}
           />
+          <CustomSwitch
+            id={"shortShowers"}
+            value={shortShowers}
+            label={"Je prends des douches courtes"}
+            setOnChange={setShortShowers}
+          />
+          <Gain
+            label={`(${shortShowers ? "-" : "+"}${Math.floor(
+              sevenMnShower / (noHousingFossile ? 3 : 1)
+            )}kgCO2eq) 💪`}
+            greenCondition={shortShowers}
+            additionalClass={"-translate-y-2"}
+            total={total}
+          />
         </div>
       </div>
       <div className="rounded-lg border bg-card text-card-foreground shadow-sm">
@@ -410,6 +430,20 @@ const Settings = ({
                   : defaultHouseCost / keeperRatio)
             )}kgCO2eq) 💪`}
             greenCondition={keeper}
+            additionalClass={"-translate-y-2"}
+            total={total}
+          />
+          <CustomSwitch
+            id={"youtube"}
+            value={stopYoutubeStreaming}
+            label={"1h de moins de streaming par jour"}
+            setOnChange={setStopYoutubeStreaming}
+          />
+          <Gain
+            label={`(${stopYoutubeStreaming ? "-" : "+"}${Math.floor(
+              oneYoutubeStreamingHourForAYear
+            )}kgCO2eq) 💪`}
+            greenCondition={stopYoutubeStreaming}
             additionalClass={"-translate-y-2"}
             total={total}
           />

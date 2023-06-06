@@ -61,7 +61,8 @@ const keeperRatio = 2;
 const flatVsHouseRatio = 2;
 const electricityHeatingRatio = 2;
 const publicDecarbRatio = 5.5;
-const sevenMnShower = 0.8;
+const sevenMnShower = 255;
+const oneYoutubeStreamingHourForAYear = 3;
 
 const data = [
   {
@@ -213,4 +214,5 @@ export {
   defaultVegetablesCost,
   defaultDrinksCost,
   sevenMnShower,
+  oneYoutubeStreamingHourForAYear,
 };

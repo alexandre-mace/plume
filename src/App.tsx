@@ -42,6 +42,7 @@ function App() {
   const [publicDecarb, setPublicDecarb] = useState(false);
   const [localFood, setLocalFood] = useState(false);
   const [shortShowers, setShortShowers] = useState(false);
+  const [stopYoutubeStreaming, setStopYoutubeStreaming] = useState(false);
 
   const computedData = computeData(
     vegan,
@@ -57,7 +58,8 @@ function App() {
     longFlights,
     mediumFlights,
     localFood,
-    shortShowers
+    shortShowers,
+    stopYoutubeStreaming
   );
 
   const total = computedData.reduce((acc, datum) => acc + datum.size, 0);
@@ -83,6 +85,7 @@ function App() {
       publicDecarb,
       localFood,
       shortShowers,
+      stopYoutubeStreaming,
     ]
   );
 
@@ -185,6 +188,8 @@ function App() {
         setLocalFood={setLocalFood}
         shortShowers={shortShowers}
         setShortShowers={setShortShowers}
+        stopYoutubeStreaming={stopYoutubeStreaming}
+        setStopYoutubeStreaming={setStopYoutubeStreaming}
       />
       <MobileTotalEmissions total={total} />
       <Footer />
