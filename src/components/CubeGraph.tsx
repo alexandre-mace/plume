@@ -86,10 +86,21 @@ export default function TreemapChart({
           labels: {
             display: true,
             color: "white",
-            formatter: (context: any) => [
-              context.raw._data.children[0].name,
-              Math.floor(context.raw._data.children[0].size),
-            ],
+            formatter: (context: any) => {
+              if (
+                width < 700 &&
+                Math.floor(context.raw._data.children[0].size) < 1000
+              ) {
+                return context.raw._data.children[0].name?.split(" ")[
+                  context.raw._data.children[0].name.split(" ").length - 1
+                ];
+              }
+
+              return [
+                context.raw._data.children[0].name,
+                Math.floor(context.raw._data.children[0].size),
+              ];
+            },
           },
           captions: {
             display: false,
