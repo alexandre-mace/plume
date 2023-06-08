@@ -14,6 +14,7 @@ import { Bar } from "react-chartjs-2";
 import getCategoryColor from "../domain/getCategoryColor";
 import { color } from "chart.js/helpers";
 import ChartDataLabels from "chartjs-plugin-datalabels";
+import useWindowDimensions from "../hooks/useWindowDimensions";
 
 ChartJS.register(
   CategoryScale,
@@ -31,6 +32,8 @@ export default function EffortGraph({
   computedData: Array<any>;
   total: number;
 }) {
+  const { height, width } = useWindowDimensions();
+
   const options: ChartOptions = {
     indexAxis: "y" as const,
     maintainAspectRatio: false,
@@ -45,6 +48,12 @@ export default function EffortGraph({
         color: "#fff",
         formatter: function (value, context) {
           const percentage = Math.round((value / total) * 100);
+          if (width < 700) {
+            return context.dataset.label?.split(" ")[
+              context.dataset.label.split(" ").length - 1
+            ];
+          }
+
           return percentage > 7 && value >= 1000
             ? percentage > 10 && value >= 1000
               ? context.dataset.label + " " + value
