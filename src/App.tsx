@@ -13,7 +13,6 @@ import {
 import { useEffect, useState } from "react";
 import computeCategoryTotal from "./lib/utils/computeCategoryTotal.js";
 import { Toaster } from "react-hot-toast";
-import TopEmissions from "./components/TopEmissions";
 import Footer from "./components/Footer";
 import handleToast from "./lib/handleToast";
 import computeData from "./domain/computeData";
