@@ -27,7 +27,7 @@ const handleToast = (total: number) => {
         />
       ),
       {
-        position: "bottom-center",
+        position: "bottom-right",
       }
     );
   }
