@@ -118,7 +118,7 @@ export default function EffortGraph({
         width:
           (total > 13000
             ? maxWidthSize
-            : 20 + Math.floor((maxWidthSize - 20) * (total / 13000))) + "vw",
+            : 20 + Math.floor((maxWidthSize - 20) * (total / 13000))) + "%",
         display: "flex",
         justifyContent: "flex-end",
         alignItems: "flex-start",
