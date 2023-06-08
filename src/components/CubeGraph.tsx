@@ -144,9 +144,9 @@ export default function TreemapChart({
       className={`chart-container mx-auto max-w-full`}
       style={{
         width:
-          (totalSize > 14000
+          (totalSize > 13000
             ? maxWidthSize
-            : 20 + Math.floor((maxWidthSize - 20) * (totalSize / 14000))) + "%",
+            : 20 + Math.floor((maxWidthSize - 20) * (totalSize / 13000))) + "%",
         position: "relative",
         display: "flex",
         justifyContent: "flex-end",
