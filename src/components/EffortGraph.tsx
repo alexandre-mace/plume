@@ -44,6 +44,9 @@ export default function EffortGraph({
     },
     responsive: true,
     plugins: {
+      tooltip: {
+        mode: "point",
+      },
       datalabels: {
         color: "#fff",
         formatter: function (value, context) {
