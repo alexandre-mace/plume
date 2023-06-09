@@ -28,6 +28,8 @@ import {
   noThrashPolicy,
   oneYoutubeStreamingHourForAYear,
   others,
+  othersBuying,
+  othersPublic,
   otherTransports,
   publicCategory,
   publicDecarbRatio,
@@ -120,7 +122,7 @@ const computeDatumSize = (
   }
   if (
     keeper &&
-    ((datum.name === others && datum.category === buyingCategory) ||
+    (datum.name === othersBuying ||
       datum.name === electronic ||
       datum.name === leisure)
   ) {
@@ -186,7 +188,7 @@ const computeDatumSize = (
       datum.name === otherTransports ||
       datum.name === bank ||
       datum.name === administration ||
-      (datum.name === others && datum.category === publicCategory))
+      (datum.name === othersPublic && datum.category === publicCategory))
   ) {
     return { ...datum, size: datum.size / publicDecarbRatio };
   }

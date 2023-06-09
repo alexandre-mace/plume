@@ -18,6 +18,9 @@ const building = "Construction 🏗️";
 const leisure = "Loisirs ⛱️";
 const electronic = "Électronique, telecoms 💻";
 const others = "Autres 😶";
+const othersFood = "Autres nourriture 😶";
+const othersBuying = "Autres achats 😶";
+const othersPublic = "Autres public 😶";
 const bank = "Assurance, banque 🏦";
 const healthEducation = "Santé, éducation 🧑‍🏫";
 const health = "Santé 🧑‍⚕️";
@@ -89,7 +92,7 @@ const data = [
         category: foodCategory,
       },
       { name: fish, size: defaultFishCost, category: foodCategory },
-      { name: others, size: defaultOtherFoodCost, category: foodCategory },
+      { name: othersFood, size: defaultOtherFoodCost, category: foodCategory },
     ],
   },
   {
@@ -126,7 +129,11 @@ const data = [
         size: defaultHealthEducationCost,
         category: buyingCategory,
       },
-      { name: others, size: defaultOtherBuyingCost, category: buyingCategory },
+      {
+        name: othersBuying,
+        size: defaultOtherBuyingCost,
+        category: buyingCategory,
+      },
     ],
   },
   {
@@ -145,7 +152,11 @@ const data = [
         category: publicCategory,
       },
       { name: culture, size: defaultCultureCost, category: publicCategory },
-      { name: others, size: defaultOtherPublicCost, category: publicCategory },
+      {
+        name: othersPublic,
+        size: defaultOtherPublicCost,
+        category: publicCategory,
+      },
     ],
   },
 ];
@@ -215,4 +226,7 @@ export {
   defaultDrinksCost,
   sevenMnShower,
   oneYoutubeStreamingHourForAYear,
+  othersFood,
+  othersBuying,
+  othersPublic,
 };
