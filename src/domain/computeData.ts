@@ -147,6 +147,14 @@ const computeDatumSize = (
   if (!noHousingFossile && datum.name === heating) {
     return { ...datum, size: datum.size - (shortShowers ? sevenMnShower : 0) };
   }
+  if (!noHousingFossile && datum.name === electricity) {
+    return {
+      ...datum,
+      size:
+        datum.size -
+        (stopYoutubeSteaming ? oneYoutubeStreamingHourForAYear : 0),
+    };
+  }
   if (noHousingFossile && datum.name === electricity && flat) {
     return {
       ...datum,
