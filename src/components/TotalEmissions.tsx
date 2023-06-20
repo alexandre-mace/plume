@@ -7,7 +7,8 @@ const TotalEmissions = ({ total }: { total: number }) => (
     </div>
     <span className={"text-lg text-slate-600 md:text-xl"}>total kgCO2eq</span>
     <div className={"md:text-md text-slate-600"}>
-      Objectif neutralité carbone : 2T/an/personne
+      Objectif neutralité carbone :{" "}
+      <span className={"font-bold text-slate-900"}>2T/an/personne 🎯</span>
     </div>
   </div>
 );
