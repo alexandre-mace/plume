@@ -46,6 +46,12 @@ import {
   useRadio,
   useRadioGroup,
 } from "@chakra-ui/react";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "./Tooltip";
 
 const Settings = ({
   transportSize,
@@ -648,11 +654,33 @@ const Gain = ({
           : "text-red-500"
       } ${additionalClass}`}
     >
-      <span className={"mr-1 inline-block font-extrabold"}>
-        {label.charAt(1)}
-        {percentage}%{" "}
-      </span>
-      ({label.split(label.charAt(1)).pop()}
+      <TooltipProvider delayDuration={200}>
+        <Tooltip>
+          <TooltipTrigger asChild>
+            <span className={"mr-1 inline-block font-extrabold"}>
+              {label.charAt(1)}
+              {percentage}%{" "}
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth={1.5}
+                stroke="gray"
+                className="inline-block h-4 w-4"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.853l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12V8.25z"
+                />
+              </svg>
+            </span>
+          </TooltipTrigger>
+          <TooltipContent className={"px-4 py-3"}>
+            ({label.split(label.charAt(1)).pop()}
+          </TooltipContent>
+        </Tooltip>
+      </TooltipProvider>
     </span>
   );
 };
