@@ -8,7 +8,16 @@ const TotalEmissions = ({ total }: { total: number }) => (
     <span className={"text-lg text-slate-600 md:text-xl"}>total kgCO2eq</span>
     <div className={"md:text-md text-slate-600"}>
       Objectif neutralité carbone :{" "}
-      <span className={"font-bold text-slate-900"}>2T/an/personne 🎯</span>
+      <a
+        href={
+          "https://bonpote.com/objectif-2-tonnes-vrai-defi-ou-mauvaise-cible/"
+        }
+        rel={"noreferrer"}
+        target={"_blank"}
+        className={"font-bold text-slate-900 underline"}
+      >
+        2T/an/personne 🎯
+      </a>
     </div>
   </div>
 );
