@@ -345,7 +345,7 @@ const Settings = ({
           <CustomSwitch
             id={"thrash"}
             value={noThrash}
-            label={"Mode de vie zéro déchets"}
+            label={"Mode de vie zéro déchet"}
             setOnChange={setNoThrash}
           />
           <Gain
@@ -357,7 +357,7 @@ const Settings = ({
           <CustomSwitch
             id={"flat"}
             value={flat}
-            label={"J'habite en appartemment"}
+            label={"J'habite en appartement"}
             setOnChange={setFlat}
           />
           <Gain

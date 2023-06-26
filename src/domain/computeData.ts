@@ -106,10 +106,18 @@ const computeDatumSize = (
     vegan &&
     (datum.name === meat || datum.name === fish || datum.name === milkEggs)
   ) {
-    return { ...datum, size: veganAnimalConsumption };
+    return {
+      ...datum,
+      size: localFood ? veganAnimalConsumption * 0.87 : veganAnimalConsumption,
+    };
   }
   if (vegetarian && (datum.name === meat || datum.name === fish)) {
-    return { ...datum, size: vegetarianFleshConsumption };
+    return {
+      ...datum,
+      size: localFood
+        ? vegetarianFleshConsumption * 0.87
+        : vegetarianFleshConsumption,
+    };
   }
   if (localFood && datum.category === foodCategory) {
     return { ...datum, size: datum.size * 0.87 };
