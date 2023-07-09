@@ -66,6 +66,7 @@ const electricityHeatingRatio = 2;
 const publicDecarbRatio = 5.5;
 const sevenMnShower = 255;
 const oneYoutubeStreamingHourForAYear = 3;
+const defaultTotal = 13170;
 
 const data = [
   {
@@ -229,4 +230,5 @@ export {
   othersFood,
   othersBuying,
   othersPublic,
+  defaultTotal
 };
