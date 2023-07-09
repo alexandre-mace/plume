@@ -685,7 +685,7 @@ const Gain = ({
 {/*                        {greenCondition &&*/}
 {/*                            <span className={"ml-1"}><img className={"inline"} src="https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Herb/3D/herb_3d.png" alt="Herb" width="20" height="20" /></span>*/}
                         {/*}*/}
-                        {greenCondition ? <span className="ml-1">🌿 r</span> : <span className="ml-1">🔥</span>}
+                        {greenCondition ? <span className="ml-1">🌿</span> : <span className="ml-1">🔥</span>}
                       </>
                 ))}
               </span>
