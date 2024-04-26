@@ -76,7 +76,7 @@ const ComputingDetails = () => (
             ).
           </div>
           <div className={"mt-2"}>
-            Les valeurs prises pour l&apos;avion moyen courriers et long
+            Les valeurs prises pour l&apos;avion moyens courriers et longs
             courriers proviennent des{" "}
             <a
               className={"underline"}
@@ -84,7 +84,7 @@ const ComputingDetails = () => (
               target={"_blank"}
               rel={"noreferrer"}
             >
-              données ouverte de l&apos;Ademe
+              données ouvertes de l&apos;Ademe
             </a>
             .
           </div>

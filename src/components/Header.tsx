@@ -7,7 +7,6 @@ const Header = () => (
     <div className={"flex flex-wrap gap-2 p-2"}>
       <Why />
       <ComputingDetails />
-      <ComplementaryInformation />
     </div>
     <div className="md:text-md flex items-center p-2 text-sm">
       <div className={"mr-3"}>un outil du</div>
